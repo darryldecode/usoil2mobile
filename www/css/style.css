@@ -1,0 +1,37 @@
+/* Empty. Add your own CSS if you like */
+
+/***************
+* LOGIN
+***************/
+.login {
+	background-image: url('../img/login-bg.png'); 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+
+.login-logo {
+	margin-top: 40%;
+}
+.login-btn {
+	background: #ffe029 !important;
+	width: 100%;
+}
+
+.footer-bg-none {
+	background: none;
+	color: #FFFFFF;
+}
+.footer-bg-none > div {
+	font-size: 12px !important;
+    font-weight: normal !important;
+}
+/***************
+* END LOGIN
+***************/
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
