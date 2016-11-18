@@ -1,5 +1,105 @@
-<ion-view view-title="TMPS">
+<ion-view view-title="TIMPS Location" class="tmps-location">
   <ion-content>
-    <h1>TIMPS</h1>
+  	<div class="padding">
+	    <h4 class="font-center">Please Enter TMPS Location</h4>
+	    <div class="tmps-form-group font-center">
+	    	<div class="row">
+	    		<div class="col">
+	    			<h4><i class="icon ion-location"></i> Manual Location Entry</h4>
+	    		</div>
+	    	</div>
+	    	<div class="row padding-vertical">
+	    		<div class="col">
+					<div class="list">
+
+					  <label class="item item-input item-select">
+					    <div class="input-label">
+					      Casino
+					    </div>
+					    <select>
+					      <option ng-repeat="option in casinos.Casinos" value="{{option.casino_trade_name}}">{{option.casino_trade_name}}</option>
+					    </select>
+					  </label>
+
+					</div>
+	    		</div>
+	    		<div class="col">
+	    			<div class="list">
+
+					  <label class="item item-input item-select">
+					    <div class="input-label">
+					      Restaurant
+					    </div>
+					    <select>
+					      <option ng-repeat="option in casinos.Restaurants" value="{{option.restaurant_name}}">{{option.restaurant_name}}</option>
+					    </select>
+					  </label>
+
+					</div>
+	    		</div>
+	    	</div>
+	    	<div class="row padding-vertical">
+	    		<button class="button button-balanced center">
+				  Use Manual Entry
+				</button>
+	    	</div>
+	    </div>
+
+	    <div class="tmps-form-group font-center">
+	    	<div class="row">
+	    		<div class="col">
+	    			<h4><i class="icon ion-navigate"></i> Use GPS Entry</h4>
+	    		</div>
+	    	</div>
+	    	<div class="row padding-vertical">
+	    		<div class="col">
+					<div class="list">
+
+					  <label class="item item-input item-select">
+					    <div class="input-label">
+					      Casino
+					    </div>
+					    <select>
+					      <option ng-repeat="option in casinos.Casinos" value="{{option.casino_trade_name}}">{{option.casino_trade_name}}</option>
+					    </select>
+					  </label>
+
+					</div>
+	    		</div>
+	    		<div class="col">
+	    			<div class="list">
+
+					  <label class="item item-input item-select">
+					    <div class="input-label">
+					      Restaurant
+					    </div>
+					    <select>
+					      <option ng-repeat="option in casinos.Restaurants" value="{{option.restaurant_name}}">{{option.restaurant_name}}</option>
+					    </select>
+					  </label>
+
+					</div>
+	    		</div>
+	    	</div>
+	    	<div class="row padding-vertical">
+	    		<button class="button button-balanced center">
+				  Use Manual Entry
+				</button>
+	    	</div>
+	    </div>
+
+	    <div class="tmps-form-group font-center">
+	    	<div class="row">
+	    		<div class="col">
+	    			<h4><i class="icon ion-qr-scanner"></i> QR Code Entry</h4>
+	    		</div>
+	    	</div>
+	    	<div class="row padding-vertical">
+	    		<button class="button button-balanced center" ng-click="scanQRcode();">
+				  Scan QR Code
+				</button>
+	    	</div>
+	    </div>
+	</div>
   </ion-content>
 </ion-view>

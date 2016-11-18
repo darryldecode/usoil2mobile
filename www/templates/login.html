@@ -34,16 +34,16 @@
     <div class="padding clear"></div>
     <div class="list padding-left padding-right padding-top">
       <label class="item item-input">
-        <input type="text" placeholder="Email">
+        <input type="text" placeholder="Email" ng-model="data.username">
       </label>
     </div>
     <div class="list padding-left padding-right">
       <label class="item item-input">
-        <input type="password" placeholder="Password">
+        <input type="password" placeholder="Password" ng-model="data.password">
       </label>
     </div>
     <div class="padding">
-      <a href="#/app/tmps" class="button button-block button-energized">Login</a>
+      <button class="button button-block button-energized" ng-click="login();">Login</button>
     </div>
   </ion-content>
 </ion-view>
