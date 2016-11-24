@@ -91,5 +91,5 @@ angular.module('usoilmobile', ['ionic', 'usoilmobile.controllers', 'usoilmobile.
     });
   */
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/tmps');
+  $urlRouterProvider.otherwise('/app/login');
 });

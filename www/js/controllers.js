@@ -72,20 +72,22 @@ angular.module('usoilmobile.controllers', [])
 
 // Issue: Phonegap desktop http get throw error. ionic serve http get success.
 .controller('TmpsController', function($scope, $cordovaBarcodeScanner, $ionicPopup, $state, TmpsService) {
-
-  TmpsService.tmpsLocation().success(function(data) {
-    $scope.casinos = data;
-    $scope.restaurants = data;
-    var alertPopup = $ionicPopup.alert({
-        title: 'TmpsService Data',
-        template: data
+  if(isLoggedIn) {
+    var token = isLoggedIn;
+    TmpsService.tmpsLocation(token).success(function(data) {
+      $scope.casinos = data;
+      $scope.restaurants = data;
+      var alertPopup = $ionicPopup.alert({
+          title: 'TmpsService Data',
+          template: data
+      });
+    }).error(function(data) {
+      var alertPopup = $ionicPopup.alert({
+          title: 'TmpsService Error',
+          template: data
+      });
     });
-  }).error(function(data) {
-    var alertPopup = $ionicPopup.alert({
-        title: 'TmpsService Error',
-        template: data
-    });
-  });
+  }
 
   $scope.scanQRcode = function () {
     $cordovaBarcodeScanner.scan().then(function(barcodeData) {
@@ -107,10 +109,15 @@ angular.module('usoilmobile.controllers', [])
 
 .controller('LoginController', function($scope, LoginService, $ionicPopup, $state){
   $scope.data = {}; //[{'user':'leonard'}, {'pass': 'pass'}];
+
   $scope.login = function() {
+    var formData = {
+       username: $scope.data.username,
+       password: $scope.data.password
+    };
     //alert($scope.data.username + " | " +$scope.data.password);
-    LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
-        isLoggedIn = 1;
+    LoginService.loginUser(formData).success(function(data) {
+        isLoggedIn = data;
         $state.go('app.tmps');
     }).error(function(data) {
         var alertPopup = $ionicPopup.alert({
