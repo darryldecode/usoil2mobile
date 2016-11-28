@@ -1,6 +1,6 @@
 angular.module('usoilmobile.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $ionicHistory) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -8,6 +8,10 @@ angular.module('usoilmobile.controllers', [])
   // listen for the $ionicView.enter event:
   //$scope.$on('$ionicView.enter', function(e) {
   //});
+  // $scope.$on('$ionicView.afterLeave', function(e){
+  //   $ionicHistory.clearCache();
+  //   console.log(e);
+  // });
 
   /*
     Form data for the login modal
@@ -48,18 +52,19 @@ angular.module('usoilmobile.controllers', [])
 })
 
 // .controller('PlaylistsCtrl', function($scope) {
-  //   $scope.playlists = [
-  //     { title: 'Reggae', id: 1 },
-  //     { title: 'Chill', id: 2 },
-  //     { title: 'Dubstep', id: 3 },
-  //     { title: 'Indie', id: 4 },
-  //     { title: 'Rap', id: 5 },
-  //     { title: 'Cowbell', id: 6 }
-  //   ];
+//     $scope.playlists = [
+//       { title: 'Reggae', id: 1 },
+//       { title: 'Chill', id: 2 },
+//       { title: 'Dubstep', id: 3 },
+//       { title: 'Indie', id: 4 },
+//       { title: 'Rap', id: 5 },
+//       { title: 'Cowbell', id: 6 }
+//     ];
 // })
 
 // .controller('PlaylistCtrl', function($scope, $stateParams) {
-// });
+//   console.log($stateParams.playlistId);
+// })
 
 
 /*
@@ -71,16 +76,11 @@ angular.module('usoilmobile.controllers', [])
 
 
 // Issue: Phonegap desktop http get throw error. ionic serve http get success.
-.controller('TmpsController', function($scope, $cordovaBarcodeScanner, $ionicPopup, $state, TmpsService) {
+.controller('TmpsController', function($scope, $cordovaBarcodeScanner, $ionicPopup, $state, TmpsService, $ionicModal, $sce) {
   if(isLoggedIn) {
     var token = isLoggedIn;
     TmpsService.tmpsLocation(token).success(function(data) {
-      $scope.casinos = data;
-      $scope.restaurants = data;
-      var alertPopup = $ionicPopup.alert({
-          title: 'TmpsService Data',
-          template: data
-      });
+      $scope.clientTpmsData = data;
     }).error(function(data) {
       var alertPopup = $ionicPopup.alert({
           title: 'TmpsService Error',
@@ -89,41 +89,80 @@ angular.module('usoilmobile.controllers', [])
     });
   }
 
-  $scope.scanQRcode = function () {
-    $cordovaBarcodeScanner.scan().then(function(barcodeData) {
-      var alertPopup = $ionicPopup.alert({
-        title: barcodeData.text,
-        template: 'Format:'+barcodeData.format+' || isCancelled:' + barcodeData.cancelled
-      });
-    }, function(error) {
-      var alertPopup = $ionicPopup.alert({
-        title: error
-      });
-    });
+  $scope.manualEntry = function(){
+    // console.log($scope.clientTpmsData.casino.id + "|" + $scope.clientTpmsData.restaurant.id);
+  }
+
+  $scope.linkStr = null; //$sce.trustAsResourceUrl('http://localhost:8000/show-fryer/9');
+  $ionicModal.fromTemplateUrl('show-fryer.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.closeModal = function() {        
+    $scope.modal.hide();
   };
+
+  document.addEventListener('deviceready', function() {
+    
+    $scope.scanQRcode = function () {
+      $cordovaBarcodeScanner.scan().then(function(barcodeData) {
+        // var alertPopup = $ionicPopup.alert({
+        //   title: barcodeData.text,
+        //   template: 'Format:'+barcodeData.format+' || isCancelled:' + barcodeData.cancelled
+        // });
+        $scope.linkStr = $sce.trustAsResourceUrl(barcodeData.text);
+        $scope.modal.show();
+      }, function(error) {
+        var alertPopup = $ionicPopup.alert({
+          title: error
+        });
+      });
+    };
+
+  }, $scope.scanQRcode = function () {
+    $scope.linkStr = $sce.trustAsResourceUrl('http://localhost:8000/show-fryer/3');
+    $scope.modal.show();
+  });
 
   if(!isLoggedIn)
     $state.go('app.login');
 
 })
 
-.controller('LoginController', function($scope, LoginService, $ionicPopup, $state){
-  $scope.data = {}; //[{'user':'leonard'}, {'pass': 'pass'}];
+
+.controller('FryerEntryController', function($scope, $stateParams){
+  
+})
+
+
+.controller('LoginController', function($scope, LoginService, $ionicPopup, $state, $ionicLoading){
+  $scope.data = {};
 
   $scope.login = function() {
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+
     var formData = {
        username: $scope.data.username,
        password: $scope.data.password
     };
     //alert($scope.data.username + " | " +$scope.data.password);
     LoginService.loginUser(formData).success(function(data) {
+      $ionicLoading.hide().then(function(){
         isLoggedIn = data;
         $state.go('app.tmps');
+      });
     }).error(function(data) {
+      $ionicLoading.hide().then(function(){
         var alertPopup = $ionicPopup.alert({
             title: 'Login failed!',
             template: 'Please check your credentials!'
         });
+      });
     });
   }
 })
