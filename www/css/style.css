@@ -51,6 +51,11 @@ iframe {
     width: 100%;
     min-height: 200px;
 }
+/*TPMS Entry Screen*/
+.green-background {
+    background: #428536;
+    min-height: 550px;
+}
 /*---------------------------------------------------------------------------------------------
 | END TMPS LOCATION
 ---------------------------------------------------------------------------------------------*/
@@ -68,4 +73,8 @@ iframe {
 
 .font-center {
 	text-align: center;
+}
+
+.header-date {
+    /*color:#E77F0E !important;*/
 }

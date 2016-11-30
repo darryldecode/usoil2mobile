@@ -51,20 +51,22 @@ angular.module('usoilmobile.controllers', [])
   };
 })
 
-// .controller('PlaylistsCtrl', function($scope) {
-//     $scope.playlists = [
-//       { title: 'Reggae', id: 1 },
-//       { title: 'Chill', id: 2 },
-//       { title: 'Dubstep', id: 3 },
-//       { title: 'Indie', id: 4 },
-//       { title: 'Rap', id: 5 },
-//       { title: 'Cowbell', id: 6 }
-//     ];
-// })
+/*
+  .controller('PlaylistsCtrl', function($scope) {
+      $scope.playlists = [
+        { title: 'Reggae', id: 1 },
+        { title: 'Chill', id: 2 },
+        { title: 'Dubstep', id: 3 },
+        { title: 'Indie', id: 4 },
+        { title: 'Rap', id: 5 },
+        { title: 'Cowbell', id: 6 }
+      ];
+  })
 
-// .controller('PlaylistCtrl', function($scope, $stateParams) {
-//   console.log($stateParams.playlistId);
-// })
+  .controller('PlaylistCtrl', function($scope, $stateParams) {
+    console.log($stateParams.playlistId);
+  })
+*/
 
 
 /*
@@ -73,26 +75,42 @@ angular.module('usoilmobile.controllers', [])
 | > http://ngcordova.com/docs/plugins/barcodeScanner/
 | > https://www.thepolyglotdeveloper.com/2014/09/implement-barcode-scanner-using-ionic-framework/
 */
-
-
-// Issue: Phonegap desktop http get throw error. ionic serve http get success.
 .controller('TmpsController', function($scope, $cordovaBarcodeScanner, $ionicPopup, $state, TmpsService, $ionicModal, $sce) {
   if(isLoggedIn) {
     var token = isLoggedIn;
     TmpsService.tmpsLocation(token).success(function(data) {
       $scope.clientTpmsData = data;
+      
+      // document.addEventListener('deviceready', function() {
+      //   // sync data from live to SQLite
+      // }, function(err) {
+      //  console.log(err);
+      // });
+    for (var i = 0; i < data.casino_links.length; i++) {
+      tmpCasino.push(data.casino_links[i].casino);
+    }
+    for (var x = 0; x < data.restaurant_links.length; x++) {
+      tmpRestaurant.push(data.restaurant_links[x].restaurant);
+    }
+    console.log(tmpCasino);
+    console.log(tmpRestaurant);
+
     }).error(function(data) {
       var alertPopup = $ionicPopup.alert({
           title: 'TmpsService Error',
           template: data
       });
     });
+  } else {
+    $state.go('app.login');
   }
 
-  $scope.manualEntry = function(){
-    // console.log($scope.clientTpmsData.casino.id + "|" + $scope.clientTpmsData.restaurant.id);
+
+  $scope.manualEntry = function() {
+    $state.go('app.fryer-entry', {'casinoId':$scope.clientTpmsData.casino.id, 'restaurantId':$scope.clientTpmsData.restaurant.id});
   }
 
+  /* MODAL iFRAME for QRcode result */
   $scope.linkStr = null; //$sce.trustAsResourceUrl('http://localhost:8000/show-fryer/9');
   $ionicModal.fromTemplateUrl('show-fryer.html', {
     scope: $scope,
@@ -100,7 +118,6 @@ angular.module('usoilmobile.controllers', [])
   }).then(function(modal) {
     $scope.modal = modal;
   });
-
   $scope.closeModal = function() {        
     $scope.modal.hide();
   };
@@ -109,10 +126,6 @@ angular.module('usoilmobile.controllers', [])
     
     $scope.scanQRcode = function () {
       $cordovaBarcodeScanner.scan().then(function(barcodeData) {
-        // var alertPopup = $ionicPopup.alert({
-        //   title: barcodeData.text,
-        //   template: 'Format:'+barcodeData.format+' || isCancelled:' + barcodeData.cancelled
-        // });
         $scope.linkStr = $sce.trustAsResourceUrl(barcodeData.text);
         $scope.modal.show();
       }, function(error) {
@@ -123,18 +136,45 @@ angular.module('usoilmobile.controllers', [])
     };
 
   }, $scope.scanQRcode = function () {
-    $scope.linkStr = $sce.trustAsResourceUrl('http://localhost:8000/show-fryer/3');
+    $scope.linkStr = $sce.trustAsResourceUrl('http://usoil2app.vizsion.com/show-fryer/3');
     $scope.modal.show();
   });
 
-  if(!isLoggedIn)
-    $state.go('app.login');
-
 })
 
+/*FRYER ENTRY CONTROLLER
+  |
+  | $scope, $stateParams
+  |
+*/
+.controller('FryerEntryController', function($scope, $stateParams, $ionicPopup, $ionicLoading, FryerEntryService){
+  $scope.datenow = new Date();
+  $scope.casino = tmpCasino.filter(function(casino){ return casino.id === parseInt($stateParams.casinoId) })[0];
+  $scope.restaurant = tmpRestaurant.filter(function(restaurant){ return restaurant.id === parseInt($stateParams.restaurantId) })[0];
 
-.controller('FryerEntryController', function($scope, $stateParams){
-  
+  $ionicLoading.show({
+    template: 'Loading...'
+  });
+
+  FryerEntryService.fryerEntry(isLoggedIn, $stateParams.restaurantId).success(function (data) {
+    $ionicLoading.hide().then(function(){
+      $scope.fryers = data;
+      $scope.fryers.count = data.fryer_links.length;
+      console.log(data);
+    });
+  }).error(function (data) {
+    $ionicLoading.hide().then(function(){
+      var alertPopup = $ionicPopup.alert({
+          title: 'Fryer entry failed!',
+          template: data
+      });
+    });
+  });
+
+  // console.log($scope.casino);
+  // console.log($scope.restaurant);
+  // console.log($stateParams);
+
 })
 
 

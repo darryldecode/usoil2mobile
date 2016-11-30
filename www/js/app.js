@@ -6,6 +6,8 @@
 // 'starter.controllers' is found in controllers.js
 var db = null; //global variable dbsqlite
 var isLoggedIn = 0;
+var tmpCasino = [];
+var tmpRestaurant = [];
 
 angular.module('usoilmobile', ['ionic', 'usoilmobile.controllers', 'usoilmobile.services', 'ngCordova'])
 
@@ -25,7 +27,7 @@ angular.module('usoilmobile', ['ionic', 'usoilmobile.controllers', 'usoilmobile.
 
     document.addEventListener('deviceready', function() {
       db = $cordovaSQLite.openDB({ name: "my.db" });
-      $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS users (user_id integer primary key, app_user_id integer, wp_user_id integer, email text, password text, status integer, date_created text)");
+      $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS users (user_id integer primary key, app_user_id integer, wp_user_id integer, email text, password text, status integer, date_created text, token text)");
       $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS fryer_t_m_p_ss (fryer_t_m_p_ss_id integer primary key, fryer_id integer, measured_tpm integer, oil_temp integer, changed_oil integer, quantity_added integer, oil_moved integer, amount_moved integer, moved_to_fryer_id integer, creation_date text, status integer)");
       $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS fryers (fryer_id integer primary key, location_id integer, fryer_name text, make text, model text, serial_number text, oil_capacity integer, benchmark integer, status integer created_at text)");
       $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS users (user_id integer primary key, app_user_id integer, wp_user_id integer, email text, password text, status integer, date_created text)");

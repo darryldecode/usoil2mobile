@@ -16,8 +16,8 @@
 					    <div class="input-label">
 					      Casino
 					    </div>
-					    <select>
-					      <option ng-model="clientTpmsData.casino.id" ng-repeat="option in clientTpmsData.casino_links" value="{{option.casino.id}}">{{option.casino.casino_trade_name}}</option>
+					    <select ng-model="clientTpmsData.casino.id">
+					      <option ng-repeat="option in clientTpmsData.casino_links" value="{{option.casino.id}}">{{option.casino.casino_trade_name}}</option>
 					    </select>
 					  </label>
 
@@ -30,8 +30,8 @@
 					    <div class="input-label">
 					      Restaurant
 					    </div>
-					    <select>
-					      <option ng-model="clientTpmsData.restaurant.id" ng-repeat="option in clientTpmsData.restaurant_links" value="{{option.restaurant.id}}">{{option.restaurant.restaurant_name}}</option>
+					    <select ng-model="clientTpmsData.restaurant.id">
+					      <option ng-repeat="option in clientTpmsData.restaurant_links" value="{{option.restaurant.id}}">{{option.restaurant.restaurant_name}}</option>
 					    </select>
 					  </label>
 
