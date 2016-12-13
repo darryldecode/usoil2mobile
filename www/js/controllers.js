@@ -47,6 +47,9 @@ angular.module('usoilmobile.controllers', [])
   */
   $scope.logout = function() {
     isLoggedIn = 0;
+    $ionicHistory.nextViewOptions({
+      disableBack: true
+    });
     $state.go('app.login');
   };
 })
@@ -75,7 +78,7 @@ angular.module('usoilmobile.controllers', [])
 | > http://ngcordova.com/docs/plugins/barcodeScanner/
 | > https://www.thepolyglotdeveloper.com/2014/09/implement-barcode-scanner-using-ionic-framework/
 */
-.controller('TmpsController', function($scope, $cordovaBarcodeScanner, $ionicPopup, $state, TmpsService, $ionicModal, $sce) {
+.controller('TmpsController', function($scope, $cordovaBarcodeScanner, $ionicPopup, $state, TmpsService, $ionicModal, $sce, $ionicHistory) {
   if(isLoggedIn) {
     var token = isLoggedIn;
     TmpsService.tmpsLocation(token).success(function(data) {
@@ -92,8 +95,6 @@ angular.module('usoilmobile.controllers', [])
     for (var x = 0; x < data.restaurant_links.length; x++) {
       tmpRestaurant.push(data.restaurant_links[x].restaurant);
     }
-    console.log(tmpCasino);
-    console.log(tmpRestaurant);
 
     }).error(function(data) {
       var alertPopup = $ionicPopup.alert({
@@ -102,6 +103,9 @@ angular.module('usoilmobile.controllers', [])
       });
     });
   } else {
+    $ionicHistory.nextViewOptions({
+      disableBack: true
+    });
     $state.go('app.login');
   }
 
@@ -149,17 +153,18 @@ angular.module('usoilmobile.controllers', [])
 */
 .controller('FryerEntryController', function($scope, $stateParams, $ionicPopup, $ionicLoading, FryerEntryService){
   $scope.datenow = new Date();
-  $scope.casino = tmpCasino.filter(function(casino){ return casino.id === parseInt($stateParams.casinoId) })[0];
-  $scope.restaurant = tmpRestaurant.filter(function(restaurant){ return restaurant.id === parseInt($stateParams.restaurantId) })[0];
+  $scope.casino = 'Casino - ' + tmpCasino.filter(function(casino){ return casino.id === parseInt($stateParams.casinoId) })[0].casino_trade_name;
+  $scope.restaurant = 'Restaurant - ' + tmpRestaurant.filter(function(restaurant){ return restaurant.id === parseInt($stateParams.restaurantId) })[0].restaurant_name;
+  $scope.fryers = {};
 
+  //LOADING SCREEN
   $ionicLoading.show({
     template: 'Loading...'
   });
-
   FryerEntryService.fryerEntry(isLoggedIn, $stateParams.restaurantId).success(function (data) {
     $ionicLoading.hide().then(function(){
       $scope.fryers = data;
-      $scope.fryers.count = data.fryer_links.length;
+      $scope.fryers.countStr = ((data.fryer_links.length >= 1) ? data.fryer_links.length + ' Friers Total': 'No fryer found for this');
       console.log(data);
     });
   }).error(function (data) {
@@ -171,14 +176,13 @@ angular.module('usoilmobile.controllers', [])
     });
   });
 
-  // console.log($scope.casino);
-  // console.log($scope.restaurant);
-  // console.log($stateParams);
-
 })
 
-
-.controller('LoginController', function($scope, LoginService, $ionicPopup, $state, $ionicLoading){
+/* LOGIN CONTROLLER
+ |
+ |
+*/
+.controller('LoginController', function($scope, LoginService, $ionicPopup, $state, $ionicLoading, $ionicHistory){
   $scope.data = {};
 
   $scope.login = function() {
@@ -194,6 +198,9 @@ angular.module('usoilmobile.controllers', [])
     LoginService.loginUser(formData).success(function(data) {
       $ionicLoading.hide().then(function(){
         isLoggedIn = data;
+        $ionicHistory.nextViewOptions({
+          disableBack: true
+        });
         $state.go('app.tmps');
       });
     }).error(function(data) {

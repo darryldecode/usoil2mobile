@@ -57,11 +57,11 @@ angular.module('usoilmobile.services', [])
 })
 
 .service('FryerEntryService', function($q, $http, urls) {
+
     return {
         fryerEntry: function (token, restaurantId) {
             var deferred = $q.defer();
             var promise = deferred.promise;
-
             $http.get(urls.BASE_API + "/client-login/fryer-entry?restaurantId="+ restaurantId +"&token=" + token).then(function (response) {
                 deferred.resolve(response.data.data);
             }, function (response) {
@@ -78,6 +78,26 @@ angular.module('usoilmobile.services', [])
             }
             return promise;
 
+        },
+
+        fryerUpdate: function(token, fryerData) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            $http.post(urls.BASE_API + 'client-login/update-fryer-entry?token=' + token, fryerData).then(function (response) {
+                deferred.resolve(response.data);
+            }, function (response) {
+                deferred.reject(response.data || 'Request failed!');
+            });
+
+            promise.success = function (fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function (fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
         }
     }
 })

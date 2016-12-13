@@ -3,29 +3,29 @@
 /*---------------------------------------------------------------------------------------------
 | LOGIN
 ---------------------------------------------------------------------------------------------*/
-.login {
-	background-image: url('../img/login-bg.png'); 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-}
+    .login {
+    	background-image: url('../img/login-bg.png'); 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+    }
 
-.login-logo {
-	margin-top: 40%;
-}
-.login-btn {
-	background: #ffe029 !important;
-	width: 100%;
-}
+    .login-logo {
+    	margin-top: 40%;
+    }
+    .login-btn {
+    	background: #ffe029 !important;
+    	width: 100%;
+    }
 
-.footer-bg-none {
-	background: none;
-	color: #FFFFFF;
-}
-.footer-bg-none > div {
-	font-size: 12px !important;
-    font-weight: normal !important;
-}
+    .footer-bg-none {
+    	background: none;
+    	color: #FFFFFF;
+    }
+    .footer-bg-none > div {
+    	font-size: 12px !important;
+        font-weight: normal !important;
+    }
 /*---------------------------------------------------------------------------------------------
 | END LOGIN
 ---------------------------------------------------------------------------------------------*/
@@ -33,29 +33,68 @@
 /*---------------------------------------------------------------------------------------------
 | TMPS LOCATION
 ---------------------------------------------------------------------------------------------*/
-.tmps-location {
-	background-image: url('../img/frier-location-screen.png');
-	-webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-}
-.tmps-form-group {
-	border-radius: 10px;
-    border: 1px solid #cd8f16;
-    padding: 5px;
-    margin-top: 25px;
-    background: #fff;
-    box-shadow: 0px 1px;
-}
-iframe {
-    width: 100%;
-    min-height: 200px;
-}
-/*TPMS Entry Screen*/
-.green-background {
-    background: #428536;
-    min-height: 550px;
-}
+    .tmps-location {
+    	background-image: url('../img/frier-location-screen.png');
+    	-webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+    }
+    .tmps-form-group {
+    	border-radius: 10px;
+        border: 1px solid #cd8f16;
+        padding: 5px;
+        margin-top: 25px;
+        background: #fff;
+        box-shadow: 0px 1px;
+    }
+    iframe {
+        width: 100%;
+        min-height: 200px;
+    }
+
+    /*TPMS Entry Screen*/
+    h4.fryer-tpms {
+      background: #F4A212;
+      margin: 0;
+      line-height: 38px;
+      min-width: 160px;
+    }
+    .green-background {
+        background: #428536;
+        min-height: 550px;
+    }
+    .arrow-up {
+      width: 0; 
+      height: 0; 
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      
+      border-bottom: 20px solid #F4A212;
+    }
+    .arrow-down {
+      width: 0; 
+      height: 0; 
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      
+      border-top: 20px solid #F4A212;
+    }
+    .arrow-right {
+      width: 0; 
+      height: 0; 
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+      
+      border-left: 20px solid #F4A212;
+    }
+    .arrow-left {
+      width: 0; 
+      height: 0; 
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent; 
+      
+      border-right:20px solid #F4A212; 
+    }
 /*---------------------------------------------------------------------------------------------
 | END TMPS LOCATION
 ---------------------------------------------------------------------------------------------*/
@@ -75,6 +114,9 @@ iframe {
 	text-align: center;
 }
 
-.header-date {
-    /*color:#E77F0E !important;*/
+.no-padding-left {
+    padding-left: 0px !important;
+}
+.no-padding-right {
+    padding-right: 0px !important;
 }
