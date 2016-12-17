@@ -214,3 +214,54 @@ angular.module('usoilmobile.controllers', [])
   }
 })
 
+.controller('RequestServiceController', function($scope, RequestServService, $ionicPopup, $state, $ionicLoading, $ionicHistory) {
+  $scope.data = {};
+  
+  if(isLoggedIn) {
+	var token = isLoggedIn;
+	
+	$scope.request_service_submit = function() {
+		$ionicLoading.show({
+		  template: 'Loading...'
+		});
+	
+		var formData = {
+		   name: $scope.data.name,
+		   email: $scope.data.email,
+		   mobile: $scope.data.mobile,
+		   service: $scope.data.service,
+		};
+		RequestServService.saveRequestService(formData).success(function(data) {
+		  $ionicLoading.hide().then(function(){
+			isLoggedIn = data;
+			$ionicHistory.nextViewOptions({
+			  disableBack: true
+			});
+			var alertPopup = $ionicPopup.alert({
+				title: 'Thank you!',
+				template: 'Request Service has been submitted successfully!'
+			});
+			$scope.data = {};
+			//$state.go('app.request-service');
+		  });
+		})/*.error(function(data) {
+			  $ionicLoading.hide().then(function(){
+				var alertPopup = $ionicPopup.alert({
+					title: 'Sorry!',
+					template: data
+				});
+			  });
+		})*/;  
+    }
+    //Pass Service Type Dropdown Values
+  } else {
+    $ionicHistory.nextViewOptions({
+      disableBack: true
+    });
+    $state.go('app.login');
+  }
+
+  /*$scope.saveRequestService = function() {
+    $state.go('app.request-service', {'name':$scope.data.name.id, 'email':$scope.data.email.id, 'mobile':$scope.data.mobile.id, 'service':$scope.data.service.id});
+  }*/
+})
