@@ -1,0 +1,61 @@
+<ion-view view-title="TPMS Entry Screen" class="tmps-location">
+	<ion-header-bar class="bar-calm transparent-bg">
+		<h1 class="title"></h1>
+	  <div class="buttons">
+	    <button class="button button-calm transparent-bg header-date">{{datenow | date:'MMM dd, yyyy'}}</button>
+	  </div>
+	</ion-header-bar>
+
+  <ion-content has-bouncing="false">
+
+  	<div class="padding">
+	    <h3 class="font-center">{{fryers.countStr}}</h3>
+	    <p class="font-center">{{casino}}</p>
+	    <p class="font-center">{{restaurant}}</p>
+  	</div>
+  	<div class="padding-horizon green-background">
+
+  		<form name="fryerForm" ng-submit="submit()" novalidate>
+
+	  		<div class="padding" ng-repeat="fryer in fryers.fryer_links">
+			    <div class="tmps-form-group font-center no-padding-left no-padding-right">
+			    	<div class="row no-padding-left">
+			    		<h4 class="fryer-tpms">{{fryer.fryer.fryer_name}}</h4>
+			    		<div class="arrow-right"></div>
+			    	</div>
+			    	<div class="row padding-vertical">
+			    		<div class="col col-50">
+			    			<label class="item item-input item-floating-label">
+			    				<span class="input-label">TPMS Input</span>
+							    <input type="text" placeholder="TPMS Input">
+							</label>
+			    		</div>
+			    		<div class="col">
+			    			<label class="item item-input item-floating-label">
+							    <span class="input-label">Oil Added</span>
+							    <input type="text" placeholder="Oid Added">
+							</label>
+			    		</div>
+			    	</div>
+			    	<div class="row padding-vertical">
+			    		<div class="col col-50">
+			    			<ion-checkbox>Move Oil</ion-checkbox>
+			    		</div>
+			    		<div class="col">
+			    			<ion-checkbox>Oil Change</ion-checkbox>
+			    		</div>
+			    	</div>
+			    	<div class="row padding-vertical">
+			    		<button class="button button-block button-balanced">SUBMIT</button>
+			    	</div>
+			    </div>
+			</div>
+			
+		</form>
+		<div class="row padding">
+		  <button class="button button-block button-energized">SUBMIT ALL</button>
+		</div>
+	</div>
+
+  </ion-content>
+</ion-view>

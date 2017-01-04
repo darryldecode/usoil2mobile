@@ -1,37 +1,50 @@
 <ion-view view-title="TMPS Location" class="tmps-location">
   <ion-content>
-  	<div class="padding">
-	    <h4 class="font-center">Please Enter TMPS Location</h4>
+  	<div class="im-wrapper">
+	    <h4 class="font-center white">Please Enter TMPS Location</h4>
+
 	    <div class="tmps-form-group font-center">
 	    	<div class="row">
 	    		<div class="col">
-	    			<h4><i class="icon ion-location"></i> Manual Location Entry</h4>
+	    			<h4 class="margin-auto"><i class="icon ion-qr-scanner"></i> QR Code Entry</h4>
+	    		</div>
+	    	</div>
+	    	<div class="row padding-vertical">
+	    		<button class="button button-balanced center" ng-click="scanQRcode();">
+				  Scan QR Code
+				</button>
+	    	</div>
+	    </div>
+
+	    <div class="tmps-form-group font-center">
+	    	<div class="row">
+	    		<div class="col">
+	    			<h4  class="margin-auto"><i class="icon ion-location"></i> Manual Location Entry</h4>
 	    		</div>
 	    	</div>
 	    	<div class="row padding-vertical">
 	    		<div class="col">
 					<div class="list">
 
-					  <label class="item item-input item-select">
+					  <label class="item item-input item-select white-bg">
 					    <div class="input-label">
 					      Casino
 					    </div>
 					    <select ng-model="clientTpmsData.casino.id">
-					      <option ng-repeat="option in clientTpmsData.casino_links" value="{{option.casino.id}}">{{option.casino.casino_trade_name}}</option>
+					    	<option value="" selected>- Select Casino</option>
+					    	<option ng-repeat="option in clientTpmsData.casino_links" value="{{option.casino.id}}">{{option.casino.casino_trade_name}}</option>
 					    </select>
 					  </label>
 
-					</div>
-	    		</div>
-	    		<div class="col">
-	    			<div class="list">
+					  <div class="padding-5 clear"></div>
 
-					  <label class="item item-input item-select">
+					  <label class="item item-input item-select white-bg">
 					    <div class="input-label">
 					      Restaurant
 					    </div>
 					    <select ng-model="clientTpmsData.restaurant.id">
-					      <option ng-repeat="option in clientTpmsData.restaurant_links" value="{{option.restaurant.id}}">{{option.restaurant.restaurant_name}}</option>
+					    	<option value="" selected>- Select Restaurant</option>
+					    	<option ng-repeat="option in clientTpmsData.restaurant_links" value="{{option.restaurant.id}}">{{option.restaurant.restaurant_name}}</option>
 					    </select>
 					  </label>
 
@@ -48,32 +61,31 @@
 	    <div class="tmps-form-group font-center">
 	    	<div class="row">
 	    		<div class="col">
-	    			<h4><i class="icon ion-navigate"></i> Use GPS Entry</h4>
+	    			<h4  class="margin-auto"><i class="icon ion-navigate"></i> Use GPS Entry</h4>
 	    		</div>
 	    	</div>
 	    	<div class="row padding-vertical">
 	    		<div class="col">
 					<div class="list">
 
-					  <label class="item item-input item-select">
+					  <label class="item item-input item-select white-bg">
 					    <div class="input-label">
 					      Casino
 					    </div>
 					    <select>
-					      <option ng-repeat="option in clientTpmsData.casino_links" value="{{option.casino.casino_trade_name}}">{{option.casino.casino_trade_name}}</option>
+					    	<option value="" selected>- Select Casino</option>
+					    	<option ng-repeat="option in clientTpmsData.casino_links" value="{{option.casino.casino_trade_name}}">{{option.casino.casino_trade_name}}</option>
 					    </select>
 					  </label>
 
-					</div>
-	    		</div>
-	    		<div class="col">
-	    			<div class="list">
+					  <div class="padding-5 clear"></div>
 
-					  <label class="item item-input item-select">
+					  <label class="item item-input item-select white-bg">
 					    <div class="input-label">
 					      Restaurant
 					    </div>
 					    <select>
+					      <option value="" selected>- Select Restaurant</option>
 					      <option ng-repeat="option in clientTpmsData.restaurant_links" value="{{option.restaurant.restaurant_name}}">{{option.restaurant.restaurant_name}}</option>
 					    </select>
 					  </label>
@@ -84,19 +96,6 @@
 	    	<div class="row padding-vertical">
 	    		<button class="button button-balanced center">
 				  Use GPS Entry
-				</button>
-	    	</div>
-	    </div>
-
-	    <div class="tmps-form-group font-center">
-	    	<div class="row">
-	    		<div class="col">
-	    			<h4><i class="icon ion-qr-scanner"></i> QR Code Entry</h4>
-	    		</div>
-	    	</div>
-	    	<div class="row padding-vertical">
-	    		<button class="button button-balanced center" ng-click="scanQRcode();">
-				  Scan QR Code
 				</button>
 	    	</div>
 	    </div>

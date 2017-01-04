@@ -8,7 +8,7 @@ angular.module('usoilmobile.services', [])
             var promise = deferred.promise;
 
             $http.post(urls.BASE_API + "/client-login", data).then(function (response) {
-				console.log(response);
+                console.log(response);
                 if(response.data != 0 || response.data != '0')
                     deferred.resolve(response.data);  
                 else
@@ -51,35 +51,6 @@ angular.module('usoilmobile.services', [])
                 promise.then(null, fn);
                 return promise;
             }
-            return promise;
-        }
-    }
-})
-
-.service('RequestServService', function($q, $http, urls) {
-    return {
-        saveRequestService: function(data) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
-
-            $http.post(urls.BASE_API + "/request-service", data).then(function (response) {
-				console.log(response);
-                if(response.data != 0 || response.data != '0')
-                    deferred.resolve(response.data);  
-                else
-                    deferred.reject(response.data || 'Please try again');
-            }/*, function (response) {
-                deferred.reject(response.data || 'Please try again');
-            }*/);
- 
-            promise.success = function(fn) {
-                promise.then(fn);
-                return promise;
-            }
-            /*promise.error = function(fn) {
-                promise.then(null, fn);
-                return promise;
-            }*/
             return promise;
         }
     }

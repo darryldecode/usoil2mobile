@@ -8,8 +8,13 @@ var db = null; //global variable dbsqlite
 var isLoggedIn = 0;
 var tmpCasino = [];
 var tmpRestaurant = [];
-
-angular.module('usoilmobile', ['ionic', 'usoilmobile.controllers', 'usoilmobile.services', 'ngCordova'])
+/*
+|---------------------------------------------------------------
+| Reference:
+| > http://ionicmaterial.com/demo/
+|---------------------------------------------------------------
+*/
+angular.module('usoilmobile', ['ionic', 'usoilmobile.controllers', 'usoilmobile.services', 'ngCordova', 'ionic-material'])
 
 .run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
@@ -88,16 +93,6 @@ angular.module('usoilmobile', ['ionic', 'usoilmobile.controllers', 'usoilmobile.
           templateUrl: 'templates/fryer.html'
         }
       }
-  })
-  
-  .state('app.request-service', {
-    url: '/request-service',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/request-service.html',
-        controller: 'RequestServiceController'
-      }
-    }
   })
   
     // .state('app.playlists', {
