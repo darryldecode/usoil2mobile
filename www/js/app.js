@@ -94,6 +94,16 @@ angular.module('usoilmobile', ['ionic', 'usoilmobile.controllers', 'usoilmobile.
         }
       }
   })
+
+  .state('app.request-service', {
+    url: '/request-service',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/request-service.html',
+        controller: 'RequestServiceController'
+      }
+    }
+  })
   
     // .state('app.playlists', {
     //   url: '/playlists',
