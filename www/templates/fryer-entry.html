@@ -1,6 +1,7 @@
 <!-- 
 Reference:
 http://codepen.io/sevilayha/pen/edoDI 
+https://www.sitepoint.com/form-based-directives-angularjs/
 -->
 <ion-view view-title="TPMS Entry Screen" class="tmps-location">
 	<ion-header-bar class="bar-calm transparent-bg">
@@ -21,42 +22,57 @@ http://codepen.io/sevilayha/pen/edoDI
 
   		<form name="fryerForm" ng-submit="submit()" novalidate>
 
-	  		<div class="padding no-padding-top" ng-repeat="fryer in fryers.fryer_links">
+	  		<div class="padding no-padding-top" ng-repeat="data in fryers.fryer_links">
 			    <div class="tmps-form-group font-center no-padding-left no-padding-right no-padding-top margin-auto">
 			    	<div class="row no-padding-left">
-			    		<h4 class="fryer-tpms">{{fryer.fryer.fryer_name}}</h4>
+			    		<h4 class="fryer-tpms">{{data.fryer.fryer_name}}</h4>
 			    		<div class="arrow-right"></div>
 			    	</div>
 			    	<div class="row padding-vertical">
 			    		<div class="col col-50">
-			    			<label class="item item-input item-floating-label">
-			    				<span class="input-label">TPMS Input</span>
-							    <input type="text" placeholder="TPMS Input">
+			    			<label class="item item-input item-floating-label white-bg">
+			    				<span class="input-label">Measured TPM</span>
+							    <input type="text" placeholder="Measured TPM" ng-model="data.fryer.fryer_tmps.measured_tpm">
 							</label>
 			    		</div>
 			    		<div class="col">
-			    			<label class="item item-input item-floating-label">
-							    <span class="input-label">Oil Added</span>
-							    <input type="text" placeholder="Oid Added">
+			    			<label class="item item-input item-floating-label white-bg">
+							    <span class="input-label">Oil Temp</span>
+							    <input type="text" placeholder="Oil Temp" ng-model="data.fryer.fryer_tmps.oil_temp">
 							</label>
 			    		</div>
 			    	</div>
 			    	<div class="row padding-vertical">
 			    		<div class="col col-50">
-			    			<ion-checkbox>Move Oil</ion-checkbox>
+			    			<ion-checkbox class="white-bg" ng-model="data.fryer.fryer_tmps.oil_moved">Move Oil?</ion-checkbox>
 			    		</div>
 			    		<div class="col">
-			    			<ion-checkbox>Oil Change</ion-checkbox>
+			    			<ion-checkbox class="white-bg" ng-model="data.fryer.fryer_tmps.changed_oil">Oil Changed?</ion-checkbox>
 			    		</div>
 			    	</div>
+			    	<div class="row padding-vertical" ng-show="data.fryer.fryer_tmps.oil_moved">
+			    		<div class="col">
+				    		<label class="item item-input white-bg">
+								<span class="input-label">Move Oil to</span>
+								<ion-select-autocomplete multiselect="false"
+								                       output="data.fryer.fryer_tmps.moved_to_fryer_id"
+								                       header="Move Oil to"
+								                       label-key="label" value-key="value"
+								                       options="fryers.optionList">
+								</ion-select-autocomplete>
+							</div>
+						</label>
+			    	</div>
 			    	<div class="row padding-vertical">
-			    		<button class="button button-block button-balanced">SUBMIT</button>
+			    		<div class="col">
+				    		<button class="button button-block button-balanced">SUBMIT</button>
+				    	</div>
 			    	</div>
 			    </div>
 			</div>
 
 			<div class="row padding">
-			  <button class="button button-block button-energized">SUBMIT ALL</button>
+			  <input type="submit" id="submit" value="SUBMIT ALL" class="button button-block button-energized" />
 			</div>
 			
 		</form>

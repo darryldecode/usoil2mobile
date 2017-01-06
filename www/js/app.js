@@ -14,7 +14,7 @@ var tmpRestaurant = [];
 | > http://ionicmaterial.com/demo/
 |---------------------------------------------------------------
 */
-angular.module('usoilmobile', ['ionic', 'usoilmobile.controllers', 'usoilmobile.services', 'ngCordova', 'ionic-material'])
+angular.module('usoilmobile', ['ionic', 'usoilmobile.controllers', 'usoilmobile.services', 'ngCordova', 'ionic-material', 'ion-select-autocomplete'])
 
 .run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {

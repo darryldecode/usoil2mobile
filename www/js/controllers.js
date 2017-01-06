@@ -161,10 +161,22 @@ angular.module('usoilmobile.controllers', [])
   $ionicLoading.show({
     template: 'Loading...'
   });
+
   FryerEntryService.fryerEntry(isLoggedIn, $stateParams.restaurantId).success(function (data) {
     $ionicLoading.hide().then(function(){
       $scope.fryers = data;
       $scope.fryers.countStr = ((data.fryer_links.length >= 1) ? data.fryer_links.length + ' Friers Total': 'No fryer found for this');
+      $scope.fryers.optionList = [
+        {
+          label: 'Fryer 1',
+          value: '1'
+        },
+        {
+          label: 'Fryer 2',
+          value: '2'
+        }
+      ];
+
       console.log(data);
     });
   }).error(function (data) {
