@@ -321,6 +321,12 @@
       
       border-right:20px solid #F4A212; 
     }
+    .bar > .buttons > .date-time-btn {
+      box-shadow: none;
+      max-width: 100px !important;
+      width: 100px;
+      padding: 0 0.1rem;
+    }
 /*---------------------------------------------------------------------------------------------
 | END of TMPS LOCATION
 ---------------------------------------------------------------------------------------------*/
@@ -380,6 +386,12 @@
   }
   .no-padding-right {
       padding-right: 0px !important;
+  }
+  .no-padding-bottom {
+    padding-bottom: 0px !important;
+  }
+  .no-padding-top {
+    padding-top: 0px !important;
   }
   .margin-auto {
     margin: auto !important;

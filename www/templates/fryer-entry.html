@@ -1,24 +1,28 @@
+<!-- 
+Reference:
+http://codepen.io/sevilayha/pen/edoDI 
+-->
 <ion-view view-title="TPMS Entry Screen" class="tmps-location">
 	<ion-header-bar class="bar-calm transparent-bg">
 		<h1 class="title"></h1>
-	  <div class="buttons">
-	    <button class="button button-calm transparent-bg header-date">{{datenow | date:'MMM dd, yyyy'}}</button>
-	  </div>
+		<div class="buttons">
+			<button class="button button-calm transparent-bg header-date date-time-btn">{{datenow | date:'MMM dd, yyyy'}}</button>
+		</div>
 	</ion-header-bar>
 
-  <ion-content has-bouncing="false">
+  <ion-content>
 
   	<div class="padding">
 	    <h3 class="font-center">{{fryers.countStr}}</h3>
-	    <p class="font-center">{{casino}}</p>
-	    <p class="font-center">{{restaurant}}</p>
+	    <p class="font-center white margin-auto">{{casino}}</p>
+	    <p class="font-center white margin-auto">{{restaurant}}</p>
   	</div>
-  	<div class="padding-horizon green-background">
+  	<div class="padding-horizon">
 
   		<form name="fryerForm" ng-submit="submit()" novalidate>
 
-	  		<div class="padding" ng-repeat="fryer in fryers.fryer_links">
-			    <div class="tmps-form-group font-center no-padding-left no-padding-right">
+	  		<div class="padding no-padding-top" ng-repeat="fryer in fryers.fryer_links">
+			    <div class="tmps-form-group font-center no-padding-left no-padding-right no-padding-top margin-auto">
 			    	<div class="row no-padding-left">
 			    		<h4 class="fryer-tpms">{{fryer.fryer.fryer_name}}</h4>
 			    		<div class="arrow-right"></div>
@@ -50,11 +54,12 @@
 			    	</div>
 			    </div>
 			</div>
+
+			<div class="row padding">
+			  <button class="button button-block button-energized">SUBMIT ALL</button>
+			</div>
 			
 		</form>
-		<div class="row padding">
-		  <button class="button button-block button-energized">SUBMIT ALL</button>
-		</div>
 	</div>
 
   </ion-content>
